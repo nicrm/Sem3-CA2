@@ -23,12 +23,52 @@ public class CityInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private int Zipcode;
+    private String city;
 
     @OneToMany
     List<Address> addresses = new ArrayList();
-    
+
+    public CityInfo() {
+    }
+
+    public CityInfo(int Zipcode, String city) {
+        this.Zipcode = Zipcode;
+        this.city = city;
+    }
+
+    public CityInfo(Long id, int Zipcode, String city) {
+        this.id = id;
+        this.Zipcode = Zipcode;
+        this.city = city;
+    }
+
+    public int getZipcode() {
+        return Zipcode;
+    }
+
+    public void setZipcode(int Zipcode) {
+        this.Zipcode = Zipcode;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+    }
+
     public Long getId() {
         return id;
     }
@@ -61,5 +101,5 @@ public class CityInfo implements Serializable {
     public String toString() {
         return "entities.CityInfo[ id=" + id + " ]";
     }
-    
+
 }

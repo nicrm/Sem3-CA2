@@ -20,8 +20,73 @@ public class Company implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String name;
+    private String description;
+    private int cvr;
+    private int NumEmployees;
+    private int MarketValue;
+
+    public Company() {
+    }
+
+    public Company(String name, String description, int cvr, int NumEmployees, int MarketValue) {
+        this.name = name;
+        this.description = description;
+        this.cvr = cvr;
+        this.NumEmployees = NumEmployees;
+        this.MarketValue = MarketValue;
+    }
+
+    public Company(Long id, String name, String description, int cvr, int NumEmployees, int MarketValue) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.cvr = cvr;
+        this.NumEmployees = NumEmployees;
+        this.MarketValue = MarketValue;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getCvr() {
+        return cvr;
+    }
+
+    public void setCvr(int cvr) {
+        this.cvr = cvr;
+    }
+
+    public int getNumEmployees() {
+        return NumEmployees;
+    }
+
+    public void setNumEmployees(int NumEmployees) {
+        this.NumEmployees = NumEmployees;
+    }
+
+    public int getMarketValue() {
+        return MarketValue;
+    }
+
+    public void setMarketValue(int MarketValue) {
+        this.MarketValue = MarketValue;
+    }
 
     public Long getId() {
         return id;
@@ -55,5 +120,5 @@ public class Company implements Serializable {
     public String toString() {
         return "entities.Company[ id=" + id + " ]";
     }
-    
+
 }
