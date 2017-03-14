@@ -21,9 +21,10 @@ public class Phone implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+    private int number;
+    private String description;
 
     @ManyToOne
     private InfoEntity infoEntity;
@@ -59,6 +60,29 @@ public class Phone implements Serializable {
     @Override
     public String toString() {
         return "entities.Phone[ id=" + id + " ]";
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Phone(Long id, int number, String description, InfoEntity infoEntity) {
+        this.id = id;
+        this.number = number;
+        this.description = description;
+        this.infoEntity = infoEntity;
+    }
+
+    public Phone(int number, String description) {
+        this.number = number;
+        this.description = description;
+    }
+
+    public Phone() {
     }
     
 }

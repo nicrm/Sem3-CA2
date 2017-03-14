@@ -24,14 +24,53 @@ public class InfoEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private int infoEntityId;
+    private String email;
 
     @OneToMany
     List<Phone> phones = new ArrayList();
     
+    
     @ManyToOne
     private Address address;
+
+    public int getInfoEntityId() {
+        return infoEntityId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public List<Phone> getPhones() {
+        return phones;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public InfoEntity(Long id, int infoEntityId, String email, Address address) {
+        this.id = id;
+        this.infoEntityId = infoEntityId;
+        this.email = email;
+        this.address = address;
+    }
+
+    public InfoEntity(int infoEntityId, String email, Address address) {
+        this.infoEntityId = infoEntityId;
+        this.email = email;
+        this.address = address;
+    }
+
+    public InfoEntity() {
+    }
+    
+    
+    
+    
     
     public Long getId() {
         return id;
