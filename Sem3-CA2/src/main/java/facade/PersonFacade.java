@@ -92,7 +92,7 @@ public class PersonFacade {
         try {
             em.getTransaction().begin();
             CityInfo city = getCityInfo(zipcode);
-            people = em.createQuery("SELECT e FROM Person p WHERE p.address.city = :city", Person.class).setParameter("city", city).getResultList();
+            people = em.createQuery("SELECT p FROM Person p WHERE p.address.city = :city", Person.class).setParameter("city", city).getResultList();
             em.getTransaction().commit();
         } finally {
             em.close();
@@ -112,6 +112,35 @@ public class PersonFacade {
             e.printStackTrace();
         }
         return cityinfo;
+    }
+    
+    public boolean deletePerson(long id){
+    EntityManager em = emf.createEntityManager();
+    Person p = null;
+        try {
+            em.getTransaction().begin();
+            p = em.find(Person.class, id);
+            em.remove(p);
+            em.getTransaction().commit();
+        } finally {
+        em.close();
+        }
+        return true;
+    }
+    
+    public Person editPerson(Person person, long id){
+    EntityManager em = emf.createEntityManager();
+    Person p = null;
+        try {
+            em.getTransaction().begin();
+            person.setId(id);
+            em.merge(person);
+            em.getTransaction().commit();
+            p = em.find(Person.class, id);
+        } finally {
+        em.close();
+        }
+        return p;
     }
 
 }
