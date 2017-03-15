@@ -89,13 +89,14 @@ public class PersonFacade {
         } finally {
             em.close();
         }
-            try{
-                em.getTransaction().begin();
-                CityInfo city = getCityInfo(Zipcode);
-                people = em.createQuery("SELECT e FROM Person p WHERE p.address.city = :city", Person.class).setParameter("city", city).getResultList();
-                em.getTransaction().commit();
-            }finally{
-            em.close();}
+        try {
+            em.getTransaction().begin();
+            CityInfo city = getCityInfo(zipcode);
+            people = em.createQuery("SELECT e FROM Person p WHERE p.address.city = :city", Person.class).setParameter("city", city).getResultList();
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
 
         return people;
 
@@ -106,7 +107,11 @@ public class PersonFacade {
         CityInfo cityinfo = null;
         try {
             cityinfo = em.createQuery("SELECT c FROM CityInfo c WHERE c.Zipcode = :Zipcode", CityInfo.class).setParameter("Zipcode", Zipcode).getResultList().get(0);
-        
-        } catch(Exception e){}
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return cityinfo;
     }
+
 }
