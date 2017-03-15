@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -32,8 +33,9 @@ public class Address implements Serializable {
     private CityInfo city;
 
     @OneToMany
+    @JoinColumn
     List<InfoEntity> enitites;
-
+    
     public Address() {
     }
 

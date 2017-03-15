@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -20,24 +22,26 @@ import javax.persistence.OneToMany;
  * @author Nicolai
  */
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class InfoEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int infoEntityId;
     private String email;
 
-    @OneToMany
-    List<Phone> phones = new ArrayList();
-    
-    
+    @OneToMany(mappedBy = "infoEntity")
+    private List<Phone> phones;
+
     @ManyToOne
     private Address address;
 
-    public int getInfoEntityId() {
-        return infoEntityId;
+    public InfoEntity() {
+    }
+
+    public InfoEntity(String email) {
+        this.email = email;
     }
 
     public String getEmail() {
@@ -52,26 +56,6 @@ public class InfoEntity implements Serializable {
         return address;
     }
 
-    public InfoEntity(Long id, int infoEntityId, String email, Address address) {
-        this.id = id;
-        this.infoEntityId = infoEntityId;
-        this.email = email;
-        this.address = address;
-    }
-
-    public InfoEntity(int infoEntityId, String email, Address address) {
-        this.infoEntityId = infoEntityId;
-        this.email = email;
-        this.address = address;
-    }
-
-    public InfoEntity() {
-    }
-    
-    
-    
-    
-    
     public Long getId() {
         return id;
     }
@@ -104,5 +88,5 @@ public class InfoEntity implements Serializable {
     public String toString() {
         return "entities.InfoEntity[ id=" + id + " ]";
     }
-    
+
 }
