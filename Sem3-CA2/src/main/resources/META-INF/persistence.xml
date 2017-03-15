@@ -4,17 +4,12 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://207.154.198.194:3306/SEM3-CA2?zeroDateTimeBehavior=convertToNull"/>
-      <property name="javax.persistence.jdbc.user" value="poul"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://46.101.126.94:3306/SEM3-CA2?zeroDateTimeBehavior=convertToNull"/>
+       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-<<<<<<< HEAD
-      <property name="javax.persistence.jdbc.password" value="poul1991"/>
-      <property name="javax.persistence.schema-generation.database.action" value="create"/>
-=======
       <property name="javax.persistence.jdbc.password" value="bookworm#10laesehest"/>
-      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+      <property name="javax.persistence.schema-generation.database.action" value="create"/>
       <property name="javax.persistence.sql-load-script-source" value="scripts/populateZip.sql"/>
->>>>>>> a7a1c5bbdfcfbca67efcc85447c3a712e9adb8ec
     </properties>
   </persistence-unit>
 </persistence>
