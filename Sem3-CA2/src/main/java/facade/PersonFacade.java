@@ -24,7 +24,7 @@ public class PersonFacade {
 
     private EntityManagerFactory emf;
 
-    public void Facade(EntityManagerFactory emf) {
+    public PersonFacade(EntityManagerFactory emf) {
         this.emf = emf;
     }
 

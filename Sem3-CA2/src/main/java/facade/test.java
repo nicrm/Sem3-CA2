@@ -5,6 +5,8 @@
  */
 package facade;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 /**
@@ -14,6 +16,9 @@ import javax.persistence.Persistence;
 public class test {
 
     public static void main(String[] args) {
-        Persistence.generateSchema("PU", null);
+       PersonFacade fc = new PersonFacade(Persistence.createEntityManagerFactory("PU"));
+       
+       
+       
     }
 }
