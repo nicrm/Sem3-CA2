@@ -29,7 +29,7 @@ public class Person implements Serializable {
     private String lastName;
     
     @ManyToMany
-    List<Hobby> hobbies = new ArrayList();
+    private List<Hobby> hobbies;
 
     public String getFirstName() {
         return firstName;
