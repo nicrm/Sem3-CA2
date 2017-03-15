@@ -7,14 +7,11 @@ package facade;
 
 import static entities.Address_.city;
 import entities.CityInfo;
-import static entities.CityInfo_.Zipcode;
 import entities.Person;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 
 /**
  *
@@ -142,5 +139,4 @@ public class PersonFacade {
         }
         return p;
     }
-
 }
