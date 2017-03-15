@@ -22,7 +22,7 @@ import javax.persistence.OneToMany;
  * @author Nicolai
  */
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class InfoEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -31,8 +31,8 @@ public class InfoEntity implements Serializable {
     private Long id;
     private String email;
 
-    @OneToMany
-    List<Phone> phones = new ArrayList();
+    @OneToMany(mappedBy = "infoEntity")
+    private List<Phone> phones;
 
     @ManyToOne
     private Address address;
