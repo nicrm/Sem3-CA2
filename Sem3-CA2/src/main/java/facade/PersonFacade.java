@@ -6,13 +6,10 @@
 package facade;
 
 import Interface.IFacade;
-import entities.Address;
 import static entities.Address_.city;
 import entities.CityInfo;
-import entities.Hobby;
 import entities.InfoEntity;
 import entities.Person;
-import entities.Phone;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -24,12 +21,17 @@ import javax.persistence.Query;
  */
 public class PersonFacade implements IFacade {
 
-    private EntityManagerFactory emf;
+    EntityManagerFactory emf;
 
     public PersonFacade(EntityManagerFactory emf) {
         this.emf = emf;
     }
+    
+    public PersonFacade() {
 
+    }
+
+    @Override
     public Person getPerson(int ID) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
@@ -61,7 +63,8 @@ public class PersonFacade implements IFacade {
         return person;
     }
 
-    public List<Person> getPersons() {
+    @Override
+    public List<Person> getAllPersons() {
         EntityManager em = emf.createEntityManager();
         List<Person> people = null;
         try {
@@ -79,7 +82,7 @@ public class PersonFacade implements IFacade {
 
     }
 
-    public List<Person> getPersonFromZipcode(int zipcode) {
+    public List<Person> getPersonsFromZipcode(int zipcode) {
         EntityManager em = emf.createEntityManager();
         List<Person> people = null;
         try {
@@ -104,7 +107,8 @@ public class PersonFacade implements IFacade {
 
     }
 
-    private CityInfo getCityInfo(int Zipcode) {
+    @Override
+    public CityInfo getCityInfo(int Zipcode) {
         EntityManager em = emf.createEntityManager();
         CityInfo cityinfo = null;
         try {
@@ -116,6 +120,7 @@ public class PersonFacade implements IFacade {
         return cityinfo;
     }
     
+    @Override
     public boolean deletePerson(long id){
     EntityManager em = emf.createEntityManager();
     Person p = null;
@@ -130,6 +135,7 @@ public class PersonFacade implements IFacade {
         return true;
     }
     
+    @Override
     public Person editPerson(Person person, long id){
     EntityManager em = emf.createEntityManager();
     Person p = null;
@@ -146,6 +152,7 @@ public class PersonFacade implements IFacade {
     }
     
     
+    @Override
     public InfoEntity addInfoEntity(InfoEntity infoEntity) {
         EntityManager em = emf.createEntityManager();
 
@@ -159,79 +166,40 @@ public class PersonFacade implements IFacade {
             em.close();
         }
     }
-
-    @Override
-    public Person addHobbyToPerson(Hobby hobby, long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Hobby addHobby(Hobby hobby) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Person addPhoneToPerson(Phone phone, long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Person addAddressToPerson(Address address, long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Person getPerson(long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Person GetPersonInfoTlf(String tlf) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Person> getPersonsFromZipcode(int zip) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Person> PeopleWithHobby(String hobby) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int HobbyCount(String hobby) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Integer> AllZips(CityInfo ci) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     @Override
     public InfoEntity editInfoEntity(InfoEntity infoEntity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            em.getTransaction().begin();
+            InfoEntity entity = em.find(infoEntity.getClass(), infoEntity.getId());
+            
+            InfoEntity e = em.merge(infoEntity);
+            em.getTransaction().commit();
+            
+            return e;
+        } finally {
+            em.close();
+        }
     }
 
     @Override
     public InfoEntity deleteInfoEntity(int infoEntityId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            em.getTransaction().begin();
+            InfoEntity entity = em.find(InfoEntity.class, infoEntityId);
+            
+            em.remove(entity);
+            em.getTransaction().commit();
+            
+            return entity;
+        } finally {
+            em.close();
+        }
     }
 
-    @Override
-    public List<Person> getAllPersons() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Person getPersonById(int personId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Person> getPersonsByHobby(String hobby) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
+
+    

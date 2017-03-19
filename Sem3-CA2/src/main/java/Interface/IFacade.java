@@ -18,26 +18,28 @@ import java.util.List;
  */
 public interface IFacade {
     
+    Person getPerson(int ID);
     Person addPerson(Person person);
-    Person addHobbyToPerson(Hobby hobby, long id);
-    Hobby addHobby(Hobby hobby);
-    Person addPhoneToPerson(Phone phone, long id);
-    Person addAddressToPerson(Address address, long id);
-    boolean deletePerson(long id);
+    public List<Person> getAllPersons();
+    List<Person> getPersonsFromZipcode(int zipcode);
     Person editPerson(Person person, long id);
-    Person getPerson(long id);
-    List<Person> getPersons();
-    Person GetPersonInfoTlf(String tlf);
-    List<Person> getPersonsFromZipcode(int zip);
-    List<Person> PeopleWithHobby(String hobby);
-    int HobbyCount(String hobby);
-    List<Integer> AllZips(CityInfo ci);
+    boolean deletePerson(long id);
+    
+    CityInfo getCityInfo(int Zipecode);
     
     public InfoEntity addInfoEntity(InfoEntity infoEntity);
     public InfoEntity editInfoEntity(InfoEntity infoEntity);
     public InfoEntity deleteInfoEntity(int infoEntityId);
     
-    public List<Person> getAllPersons();
-    public Person getPersonById(int personId);
-    public List<Person> getPersonsByHobby(String hobby);
+//    List<Person> getPersons();
+//    Person GetPersonInfoTlf(String tlf);
+//    
+//    List<Person> PeopleWithHobby(String hobby);
+//    int HobbyCount(String hobby);
+//    List<Integer> AllZips(CityInfo ci);
+//    
+
+//    
+//    public Person getPersonById(int personId);
+//    public List<Person> getPersonsByHobby(String hobby);
 }
