@@ -5,9 +5,12 @@
  */
 package REST;
 
+import Interface.IFacade;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import entities.Person;
 import facade.PersonFacade;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -29,9 +32,11 @@ import javax.ws.rs.core.MediaType;
  * @author Peter Henriksen
  */
 @Path("person")
-public class GenericResource {
+public class PersonResource {
 
-    static Gson gson = new Gson();
+    private static final IFacade FACADE = new PersonFacade(Persistence.createEntityManagerFactory("PU"));
+    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+    
 
     @Context
     private UriInfo context;
@@ -39,7 +44,7 @@ public class GenericResource {
     /**
      * Creates a new instance of GenericResource
      */
-    public GenericResource() {
+    public PersonResource() {
     }
 
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU");
@@ -55,10 +60,53 @@ public class GenericResource {
     }
 
     /**
-     * PUT method for updating or creating an instance of GenericResource
+     * PUT method for updating or creating an instance of PersonResource
      *
      * @param content representation for the resource
      */
+    
+    
+    @PUT
+    @Path("add")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String addPerson(String jsonPerson) {
+        Person person = GSON.fromJson(jsonPerson, Person.class);
+        Person p = (Person) FACADE.addInfoEntity(person);
+        
+        return GSON.toJson(p);
+    }
+    
+    @POST
+    @Path("edit")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String editPerson(String jsonPerson) {
+        Person person = GSON.fromJson(jsonPerson, Person.class);
+        Person p = (Person) FACADE.editInfoEntity(person);
+        
+        return GSON.toJson(p);
+    }
+    
+    @DELETE
+    @Path("delete/{id: \\d+}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String deletePerson(@PathParam("id") int id)  {
+        Person person = (Person) FACADE.deleteInfoEntity(id);
+        
+        return GSON.toJson(person);
+    }
+    
+    @GET
+    @Path("all")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAllPersons() {
+        List<Person> people = FACADE.getAllPersons();
+        
+        return GSON.toJson(people);
+    }
+    
+    
     @PUT
     @Consumes(MediaType.APPLICATION_XML)
     public void putXml(String content) {
